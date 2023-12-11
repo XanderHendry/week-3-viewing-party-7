@@ -38,7 +38,7 @@ RSpec.describe "User Registration" do
     click_button 'Create New User'
 
     expect(current_path).to eq(register_path)
-    expect(page).to have_content("Name cannot be blank")
+    expect(page).to have_content("Name can't be blank")
   end
   it 'does not create a user if I do not provide matching passwords' do 
     visit register_path
