@@ -15,8 +15,7 @@ RSpec.describe "User Registration" do
   end 
 
   it 'does not create a user if email isnt unique' do 
-    User.create(name: 'User One', email: 'notunique@example.com')
-
+    User.create(name: 'User One', email: 'notunique@example.com', password: 'test', password_confirmation: 'test')
     visit register_path
     
     fill_in :user_name, with: 'User Two'
