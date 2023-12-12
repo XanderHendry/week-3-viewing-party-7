@@ -39,4 +39,25 @@ RSpec.describe "Log In Page" do
 
     expect(page).to have_content("Sorry, your credentials are bad.")
   end
+
+  it 'lets me log out, after succesfully logging in' do
+    user = User.create(name: 'User One', email: 'unique@example.com', password: 'password1', password_confirmation: 'password1')
+    
+    visit login_path
+
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+
+    click_button 'Log In'
+    
+    visit root_path
+    
+    expect(page).to_not have_link('Log In')
+    expect(page).to have_link('Log Out')
+    click_link('Log Out')
+
+    expect(current_path).to eq(user_path(user.id))
+
+    expect(page).to have_content("User One's Dashboard")
+  end 
 end
