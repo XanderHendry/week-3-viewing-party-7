@@ -16,8 +16,8 @@ RSpec.describe "Log In Page" do
 
     click_button 'Log In'
 
+    
     expect(current_path).to eq(user_path(user.id))
-
     expect(page).to have_content("User One's Dashboard")
   end 
   
@@ -56,8 +56,9 @@ RSpec.describe "Log In Page" do
     expect(page).to have_link('Log Out')
     click_link('Log Out')
 
-    expect(current_path).to eq(user_path(user.id))
+    expect(current_path).to eq(root_path)
 
-    expect(page).to have_content("User One's Dashboard")
+    expect(page).to_not have_link('Log Out')
+    expect(page).to have_link('Log In')
   end 
 end
