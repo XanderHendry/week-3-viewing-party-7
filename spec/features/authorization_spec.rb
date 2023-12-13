@@ -35,4 +35,18 @@ RSpec.describe 'App Authorizations' do
     expect(page).to_not have_link(user2.email)
     end
   end
+
+  describe 'trying to create a Viewing Party as a Visitor' do 
+    it 'will redirect me to the movie show page with a message that I must be logged in' do 
+      user1 = User.create(name: "User One", email: "user1@test.com", password: 'test', password_confirmation: 'test')
+      movie = Movie.create(title: "Movie Title", rating: rand(1..10), description: "This is a description about Movie")
+
+      visit movie_path(user1.id, movie.id)
+
+      click_button 'Create a Viewing Party'
+
+      expect(current_path).to eq(movie_path(user1.id, movie.id))
+      expect(page).to have_content('You must be logged in or registered to create a movie party')
+    end
+  end
 end 
